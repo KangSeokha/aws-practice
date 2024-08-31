@@ -21,12 +21,18 @@ jobs:
       - name: SSH and deploy
         run: |
           ssh ${{secrets.SSH_USERNAME}}@${{secrets.SSH_PUBLIC_IP}} "
-           cd aws-practice
-           git pull || exit 1
-           npm install || exit 1
-           npm run build || exit 1
-           sudo pkill node || exit 1
-           sudo npm run start & || exit 1
-           sudo npm run start & npx wait-on http://localhost
-           exit
+            echo "Changing directory..."
+            cd aws-practice || { echo "Directory 'aws-practice' not found"; exit 1; }
+            echo "Pulling latest code..."
+            git pull || exit 1
+            echo "Installing npm dependencies..."
+            npm install || exit 1
+            echo "Building project..."
+            npm run build || exit 1
+            echo "Stopping existing node processes..."
+            sudo pkill node || exit 1
+            echo "Starting the application..."
+            sudo npm run start & npx wait-on http://localhost || exit 1
+            echo "Exiting..."
+            exit
           "
