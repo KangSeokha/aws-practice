@@ -24,7 +24,7 @@ jobs:
             echo "Changing directory..."
             cd aws-practice || { echo "Directory 'aws-practice' not found"; exit 1; }
             echo "Pulling latest code..."
-            git pull || exit 1
+            git pull --rebase|| exit 1
             echo "Installing npm dependencies..."
             npm install || exit 1
             echo "Building project..."
