@@ -14,31 +14,19 @@ jobs:
           mkdir -p ~/.ssh/
           echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-
       - name: Set up known hosts
         run: |
           echo "${{secrets.SSH_KNOWN_HOSTS}}" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
-
       - name: SSH and deploy
         run: |
-          ssh ${{secrets.SSH_USERNAME}}@${{secrets.SSH_PUBLIC_IP}} "  
-            echo "Creating directory..."
-            mkdir -p connection_checked
-            echo "Listing files..."
-            ls -la
-            echo "Changing directory..."
-            cd aws-practice || { echo "Directory 'aws-practice' not found"; exit 1; }
-            echo "Pulling latest code..."
-            git pull || exit 1
-            echo "Installing npm dependencies..."
-            npm install || exit 1
-            echo "Building project..."
-            npm run build || exit 1
-            echo "Stopping existing node processes..."
-            sudo pkill node || exit 1
-            echo "Starting the application..."
-            sudo npm run start & npx wait-on http://localhost || exit 1
-            echo "Exiting..."
-            exit
+          ssh ${{secrets.SSH_USERNAME}}@${{secrets.SSH_PUBLIC_IP}} "
+           cd aws-practice
+           git pull || exit 1
+           npm install || exit 1
+           npm run build || exit 1
+           sudo pkill node || exit 1
+           sudo npm run start & || exit 1
+           sudo npm run start & npx wait-on http://localhost
+           exit
           "
