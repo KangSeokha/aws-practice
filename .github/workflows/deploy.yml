@@ -23,6 +23,7 @@ jobs:
       - name: SSH and deploy
         run: |
           ssh ${{secrets.SSH_USERNAME}}@${{secrets.SSH_PUBLIC_IP}} "
+              mkdir -p connection_checked
               ls -la
               cd aws-practice
               git pull || exit 1
