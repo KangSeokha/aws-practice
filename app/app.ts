@@ -20,6 +20,7 @@ export const createApp = (client: RedisClient) => {
 
 	app.get('/fibonacci/:n', (req, res) => {
 		const n = parseInt(req.params.n, 10);
+		if (n > 35) res.send(`${n} is too big`);
 		const result = fibonacci(n);
 		res.send(`Fibonacci(${n} = ${result})`);
 	});
