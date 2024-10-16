@@ -33,7 +33,7 @@ jobs:
             echo "Stopping existing node processes..."
             sudo pkill node
             echo "Starting the application..."
-            nohup sudo npm run start & 
+            nohup sudo npm run start > /dev/null 2>&1 & disown  # Fully detach the process
             echo "Exiting..."
             exit
           "
