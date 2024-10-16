@@ -23,6 +23,8 @@ jobs:
           ssh ${{secrets.SSH_USERNAME}}@${{secrets.SSH_PUBLIC_IP}} "
             echo 'Changing directory...'
             cd aws-practice || { echo 'Directory aws-practice not found'; exit 1; }
+            echo 'Resetting local changes...'
+            git reset --hard HEAD || exit 1  # Discards local changes
             echo 'Pulling latest code...'
             git config pull.rebase false || exit 1
             git pull || exit 1
