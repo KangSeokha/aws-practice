@@ -1,0 +1,10 @@
+config:
+  target: http://localhost:4000
+  pharse:
+    - duration: 5
+      arrivalrate: 100000
+
+scenarios:
+  - flow:
+      - get:
+          url: '/messages'
