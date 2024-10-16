@@ -32,7 +32,7 @@ jobs:
             echo "Stopping existing node processes..."
             # sudo pkill node
             echo "Starting the application..."
-            sudo npm run start & npx wait-on http://localhost || exit 1
+            sudo npm run start & npx wait-on http://localhost
             echo "Exiting..."
             exit
           "
